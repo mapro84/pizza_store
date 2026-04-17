@@ -27,7 +27,6 @@
         </div>
         <div class="col-md-5">
             <h1>{{ pizza.name }}</h1>
-            <p class="text-muted">{{ pizza.category }}</p>
             <h2 class="price mb-4">{{ pizza.price|number_format(2, ',', ' ') }} €</h2>
             
             <div class="mb-4">
@@ -35,14 +34,7 @@
                 <p>{{ pizza.description }}</p>
             </div>
 
-            <div class="mb-4">
-                <h5>Ingrédients</h5>
-                <div class="d-flex flex-wrap gap-2">
-                    {% for ingredient in pizza.ingredients %}
-                    <span class="badge bg-danger">{{ ingredient }}</span>
-                    {% endfor %}
-                </div>
-            </div>
+            
 
             <div class="mb-4">
                 <h5>Tailles disponibles</h5>
