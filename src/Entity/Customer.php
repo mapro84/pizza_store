@@ -34,6 +34,9 @@ class Customer
     #[ORM\Column(name: 'is_vip', nullable: true)]
     private ?bool $isVip = false;
 
+    #[ORM\Column(name: 'favorite_payment_method', length: 50, nullable: true)]
+    private ?string $favoritePaymentMethod = null;
+
     public function __construct()
     {
         $this->loyaltyPoints = 0;
@@ -178,5 +181,27 @@ class Customer
     {
         $this->isVip = $isVip;
         return $this;
+    }
+
+    public function getFavoritePaymentMethod(): ?string
+    {
+        return $this->favoritePaymentMethod;
+    }
+
+    public function setFavoritePaymentMethod(?string $favoritePaymentMethod): static
+    {
+        $this->favoritePaymentMethod = $favoritePaymentMethod;
+        return $this;
+    }
+
+    public function getFavoritePaymentMethodLabel(): string
+    {
+        return match($this->favoritePaymentMethod) {
+            'carte' => 'Carte bancaire',
+            'especes' => 'Espèces',
+            'paypal' => 'PayPal',
+            'swish' => 'Swish',
+            default => $this->favoritePaymentMethod ?? '—',
+        };
     }
 }

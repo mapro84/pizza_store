@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="messages" source-language="es" datatype="plaintext">
+        <body>
+            <trans-unit id="account.title">
+                <source>account.title</source>
+                <target>Mi Cuenta</target>
+            </trans-unit>
+            <trans-unit id="account.profile">
+                <source>account.profile</source>
+                <target>Mi Perfil</target>
+            </trans-unit>
+            <trans-unit id="account.orders">
+                <source>account.orders</source>
+                <target>Mis Pedidos</target>
+            </trans-unit>
+            <trans-unit id="account.edit">
+                <source>account.edit</source>
+                <target>Editar mis datos</target>
+            </trans-unit>
+            <trans-unit id="account.personal_info">
+                <source>account.personal_info</source>
+                <target>Información personal</target>
+            </trans-unit>
+            <trans-unit id="account.loyalty_program">
+                <source>account.loyalty_program</source>
+                <target>Programa de fidelidad</target>
+            </trans-unit>
+            <trans-unit id="account.loyalty_points">
+                <source>account.loyalty_points</source>
+                <target>puntos de fidelidad</target>
+            </trans-unit>
+            <trans-unit id="account.cumulative_points">
+                <source>account.cumulative_points</source>
+                <target>Puntos Acumulados</target>
+            </trans-unit>
+            <trans-unit id="account.total_orders">
+                <source>account.total_orders</source>
+                <target>Pedidos Totales</target>
+            </trans-unit>
+            <trans-unit id="account.total_spent">
+                <source>account.total_spent</source>
+                <target>Total Gastado</target>
+            </trans-unit>
+            <trans-unit id="account.payment_method">
+                <source>account.payment_method</source>
+                <target>Método de Pago</target>
+            </trans-unit>
+            <trans-unit id="account.favorite_payment">
+                <source>account.favorite_payment</source>
+                <target>Pago Preferido</target>
+            </trans-unit>
+            <trans-unit id="account.address">
+                <source>account.address</source>
+                <target>Dirección</target>
+            </trans-unit>
+            <trans-unit id="account.email">
+                <source>account.email</source>
+                <target>Correo electrónico</target>
+            </trans-unit>
+            <trans-unit id="account.phone">
+                <source>account.phone</source>
+                <target>Teléfono</target>
+            </trans-unit>
+            <trans-unit id="account.name">
+                <source>account.name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="account.firstname">
+                <source>account.firstname</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="account.lastname">
+                <source>account.lastname</source>
+                <target>Apellido</target>
+            </trans-unit>
+            <trans-unit id="account.order_number">
+                <source>account.order_number</source>
+                <target>N° Pedido</target>
+            </trans-unit>
+            <trans-unit id="account.date">
+                <source>account.date</source>
+                <target>Fecha</target>
+            </trans-unit>
+            <trans-unit id="account.amount">
+                <source>account.amount</source>
+                <target>Importe</target>
+            </trans-unit>
+            <trans-unit id="account.status">
+                <source>account.status</source>
+                <target>Estado</target>
+            </trans-unit>
+            <trans-unit id="account.action">
+                <source>account.action</source>
+                <target>Acción</target>
+            </trans-unit>
+            <trans-unit id="account.view">
+                <source>account.view</source>
+                <target>Ver</target>
+            </trans-unit>
+            <trans-unit id="account.save">
+                <source>account.save</source>
+                <target>Guardar</target>
+            </trans-unit>
+            <trans-unit id="account.cancel">
+                <source>account.cancel</source>
+                <target>Cancelar</target>
+            </trans-unit>
+            <trans-unit id="account.back">
+                <source>account.back</source>
+                <target>Volver</target>
+            </trans-unit>
+            <trans-unit id="account.order_details">
+                <source>account.order_details</source>
+                <target>Detalles del Pedido</target>
+            </trans-unit>
+            <trans-unit id="account.product">
+                <source>account.product</source>
+                <target>Producto</target>
+            </trans-unit>
+            <trans-unit id="account.quantity">
+                <source>account.quantity</source>
+                <target>Cantidad</target>
+            </trans-unit>
+            <trans-unit id="account.unit_price">
+                <source>account.unit_price</source>
+                <target>Precio Unitario</target>
+            </trans-unit>
+            <trans-unit id="account.total">
+                <source>account.total</source>
+                <target>Total</target>
+            </trans-unit>
+            <trans-unit id="account.subtotal">
+                <source>account.subtotal</source>
+                <target>Subtotal</target>
+            </trans-unit>
+            <trans-unit id="account.discount">
+                <source>account.discount</source>
+                <target>Descuento</target>
+            </trans-unit>
+            <trans-unit id="account.delivery_address">
+                <source>account.delivery_address</source>
+                <target>Dirección de Entrega</target>
+            </trans-unit>
+            <trans-unit id="account.contact">
+                <source>account.contact</source>
+                <target>Contacto</target>
+            </trans-unit>
+            <trans-unit id="account.city">
+                <source>account.city</source>
+                <target>Ciudad</target>
+            </trans-unit>
+            <trans-unit id="account.postal_code">
+                <source>account.postal_code</source>
+                <target>Código Postal</target>
+            </trans-unit>
+            <trans-unit id="account.street">
+                <source>account.street</source>
+                <target>Calle y Número</target>
+            </trans-unit>
+            <trans-unit id="account.shipping_address">
+                <source>account.shipping_address</source>
+                <target>Dirección de Envío</target>
+            </trans-unit>
+            <trans-unit id="account.not_provided">
+                <source>account.not_provided</source>
+                <target>No proporcionado</target>
+            </trans-unit>
+            <trans-unit id="account.no_orders">
+                <source>account.no_orders</source>
+                <target>Todavía no has realizado ningún pedido.</target>
+            </trans-unit>
+            <trans-unit id="account.order_again">
+                <source>account.order_again</source>
+                <target>Pedir de Nuevo</target>
+            </trans-unit>
+            <trans-unit id="account.profile_updated">
+                <source>account.profile_updated</source>
+                <target>Perfil actualizado con éxito.</target>
+            </trans-unit>
+            <trans-unit id="payment.carte">
+                <source>payment.carte</source>
+                <target>Tarjeta de Crédito</target>
+            </trans-unit>
+            <trans-unit id="payment.especes">
+                <source>payment.especes</source>
+                <target>Efectivo</target>
+            </trans-unit>
+            <trans-unit id="payment.paypal">
+                <source>payment.paypal</source>
+                <target>PayPal</target>
+            </trans-unit>
+            <trans-unit id="payment.swish">
+                <source>payment.swish</source>
+                <target>Swish</target>
+            </trans-unit>
+            <trans-unit id="status.pending">
+                <source>status.pending</source>
+                <target>Pendiente</target>
+            </trans-unit>
+            <trans-unit id="status.confirmed">
+                <source>status.confirmed</source>
+                <target>Confirmado</target>
+            </trans-unit>
+            <trans-unit id="status.preparing">
+                <source>status.preparing</source>
+                <target>Preparando</target>
+            </trans-unit>
+            <trans-unit id="status.ready">
+                <source>status.ready</source>
+                <target>Listo</target>
+            </trans-unit>
+            <trans-unit id="status.delivered">
+                <source>status.delivered</source>
+                <target>Entregado</target>
+            </trans-unit>
+            <trans-unit id="status.cancelled">
+                <source>status.cancelled</source>
+                <target>Cancelado</target>
+            </trans-unit>
+            <trans-unit id="nav.my_account">
+                <source>nav.my_account</source>
+                <target>Mi cuenta</target>
+            </trans-unit>
+            <trans-unit id="nav.my_orders">
+                <source>nav.my_orders</source>
+                <target>Mis pedidos</target>
+            </trans-unit>
+            <trans-unit id="nav.my_profile">
+                <source>nav.my_profile</source>
+                <target>Mi perfil</target>
+            </trans-unit>
+            <trans-unit id="nav.logout">
+                <source>nav.logout</source>
+                <target>Cerrar sesión</target>
+            </trans-unit>
+            <trans-unit id="nav.home">
+                <source>nav.home</source>
+                <target>Inicio</target>
+            </trans-unit>
+            <trans-unit id="nav.menu">
+                <source>nav.menu</source>
+                <target>Menú</target>
+            </trans-unit>
+            <trans-unit id="nav.categories">
+                <source>nav.categories</source>
+                <target>Categorías</target>
+            </trans-unit>
+            <trans-unit id="nav.classic_pizzas">
+                <source>nav.classic_pizzas</source>
+                <target>Pizzas Clásicas</target>
+            </trans-unit>
+            <trans-unit id="nav.special_pizzas">
+                <source>nav.special_pizzas</source>
+                <target>Pizzas Especiales</target>
+            </trans-unit>
+            <trans-unit id="nav.calzones">
+                <source>nav.calzones</source>
+                <target>Calzonas</target>
+            </trans-unit>
+            <trans-unit id="nav.desserts">
+                <source>nav.desserts</source>
+                <target>Postres</target>
+            </trans-unit>
+            <trans-unit id="nav.full_menu">
+                <source>nav.full_menu</source>
+                <target>Menú Completo</target>
+            </trans-unit>
+            <trans-unit id="nav.contact">
+                <source>nav.contact</source>
+                <target>Contacto</target>
+            </trans-unit>
+            <trans-unit id="nav.sitemap">
+                <source>nav.sitemap</source>
+                <target>Mapa del Sitio</target>
+            </trans-unit>
+            <trans-unit id="nav.legal">
+                <source>nav.legal</source>
+                <target>Aviso Legal</target>
+            </trans-unit>
+            <trans-unit id="nav.cgu">
+                <source>nav.cgu</source>
+                <target>CGU</target>
+            </trans-unit>
+            <trans-unit id="nav.cgv">
+                <source>nav.cgv</source>
+                <target>CGV</target>
+            </trans-unit>
+            <trans-unit id="nav.admin">
+                <source>nav.admin</source>
+                <target>Admin</target>
+            </trans-unit>
+            <trans-unit id="nav.login">
+                <source>nav.login</source>
+                <target>Iniciar sesión</target>
+            </trans-unit>
+            <trans-unit id="account.change_password">
+                <source>account.change_password</source>
+                <target>Cambiar contraseña</target>
+            </trans-unit>
+            <trans-unit id="account.current_password">
+                <source>account.current_password</source>
+                <target>Contraseña actual</target>
+            </trans-unit>
+            <trans-unit id="account.new_password">
+                <source>account.new_password</source>
+                <target>Nueva contraseña</target>
+            </trans-unit>
+            <trans-unit id="account.confirm_password">
+                <source>account.confirm_password</source>
+                <target>Confirmar contraseña</target>
+            </trans-unit>
+            <trans-unit id="account.password_min_length">
+                <source>account.password_min_length</source>
+                <target>Mínimo 8 caracteres</target>
+            </trans-unit>
+            <trans-unit id="account.save_password">
+                <source>account.save_password</source>
+                <target>Guardar contraseña</target>
+            </trans-unit>
+            <trans-unit id="admin.users">
+                <source>admin.users</source>
+                <target>Usuarios</target>
+            </trans-unit>
+            <trans-unit id="admin.dashboard">
+                <source>admin.dashboard</source>
+                <target>Panel de control</target>
+            </trans-unit>
+            <trans-unit id="user.username">
+                <source>user.username</source>
+                <target>Nombre de usuario</target>
+            </trans-unit>
+            <trans-unit id="user.email">
+                <source>user.email</source>
+                <target>Correo electrónico</target>
+            </trans-unit>
+            <trans-unit id="user.name">
+                <source>user.name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="user.roles">
+                <source>user.roles</source>
+                <target>Roles</target>
+            </trans-unit>
+            <trans-unit id="user.created_at">
+                <source>user.created_at</source>
+                <target>Creado el</target>
+            </trans-unit>
+            <trans-unit id="user.actions">
+                <source>user.actions</source>
+                <target>Acciones</target>
+            </trans-unit>
+            <trans-unit id="user.edit">
+                <source>user.edit</source>
+                <target>Editar</target>
+            </trans-unit>
+            <trans-unit id="user.change_password">
+                <source>user.change_password</source>
+                <target>Cambiar contraseña</target>
+            </trans-unit>
+            <trans-unit id="user.new_password">
+                <source>user.new_password</source>
+                <target>Nueva contraseña</target>
+            </trans-unit>
+            <trans-unit id="user.confirm_password">
+                <source>user.confirm_password</source>
+                <target>Confirmar contraseña</target>
+            </trans-unit>
+            <trans-unit id="user.password_min_length">
+                <source>user.password_min_length</source>
+                <target>Mínimo 8 caracteres</target>
+            </trans-unit>
+            <trans-unit id="user.save_password">
+                <source>user.save_password</source>
+                <target>Guardar contraseña</target>
+            </trans-unit>
+            <trans-unit id="user.cancel">
+                <source>user.cancel</source>
+                <target>Cancelar</target>
+            </trans-unit>
+            <trans-unit id="user.save">
+                <source>user.save</source>
+                <target>Guardar</target>
+            </trans-unit>
+            <trans-unit id="user.no_users">
+                <source>user.no_users</source>
+                <target>No se encontraron usuarios.</target>
+            </trans-unit>
+            <trans-unit id="user.role_admin">
+                <source>user.role_admin</source>
+                <target>Administrador</target>
+            </trans-unit>
+            <trans-unit id="user.role_user">
+                <source>user.role_user</source>
+                <target>Usuario</target>
+            </trans-unit>
+            <trans-unit id="user.firstname">
+                <source>user.firstname</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="user.lastname">
+                <source>user.lastname</source>
+                <target>Apellido</target>
+            </trans-unit>
+            <trans-unit id="user.phone">
+                <source>user.phone</source>
+                <target>Teléfono</target>
+            </trans-unit>
+            <trans-unit id="user.informations">
+                <source>user.informations</source>
+                <target>Información</target>
+            </trans-unit>
+            <trans-unit id="user.member_since">
+                <source>user.member_since</source>
+                <target>Miembro desde</target>
+            </trans-unit>
+            <trans-unit id="user.role_admin_warning">
+                <source>user.role_admin_warning</source>
+                <target>Advertencia: Otorgar el rol de administrador da acceso completo al panel de administración.</target>
+            </trans-unit>
+            <trans-unit id="password.requirement.min_length">
+                <source>password.requirement.min_length</source>
+                <target>Mínimo {count} caracteres</target>
+            </trans-unit>
+            <trans-unit id="password.error.min_length">
+                <source>password.error.min_length</source>
+                <target>La contraseña debe contener al menos 8 caracteres.</target>
+            </trans-unit>
+            <trans-unit id="password.error.uppercase">
+                <source>password.error.uppercase</source>
+                <target>La contraseña debe contener al menos una letra mayúscula.</target>
+            </trans-unit>
+            <trans-unit id="password.error.number">
+                <source>password.error.number</source>
+                <target>La contraseña debe contener al menos un número.</target>
+            </trans-unit>
+            <trans-unit id="password.error.special">
+                <source>password.error.special</source>
+                <target>La contraseña debe contener al menos un carácter especial (!@#$%^&amp;*(),.?":{}|&lt;&gt;).</target>
+            </trans-unit>
+            <trans-unit id="password.requirements">
+                <source>password.requirements</source>
+                <target>La contraseña debe contener:</target>
+            </trans-unit>
+            <trans-unit id="password.requirement.uppercase">
+                <source>password.requirement.uppercase</source>
+                <target>Al menos una letra mayúscula</target>
+            </trans-unit>
+            <trans-unit id="password.requirement.number">
+                <source>password.requirement.number</source>
+                <target>Al menos un número</target>
+            </trans-unit>
+            <trans-unit id="password.requirement.special">
+                <source>password.requirement.special</source>
+                <target>Al menos un carácter especial</target>
+            </trans-unit>
+            <trans-unit id="cart.create_account.password_weak">
+                <source>cart.create_account.password_weak</source>
+                <target>Tu contraseña no es lo suficientemente segura. Por favor cumple los requisitos.</target>
+            </trans-unit>
+            <trans-unit id="password.error.same_as_current">
+                <source>password.error.same_as_current</source>
+                <target>La nueva contraseña debe ser diferente de la contraseña actual.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

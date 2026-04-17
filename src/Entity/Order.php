@@ -306,7 +306,7 @@ class Order
             'especes' => 'Espèces',
             'paypal' => 'PayPal',
             'swish' => 'Swish',
-            default => $this->paymentMethod ?? 'Non défini',
+            default => $this->paymentMethod ?? '—',
         };
     }
 }

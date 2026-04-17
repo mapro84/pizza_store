@@ -73,11 +73,11 @@
         <div class="col-md-2">
             <div class="card bg-secondary text-white">
                 <div class="card-body text-center">
-                    <i class="bi bi-bar-chart fs-1"></i>
+                    <i class="bi bi-people-fill fs-1"></i>
                     <h3>-</h3>
-                    <small>Stats</small>
+                    <small>Utilisateurs</small>
                     <br>
-                    <a href="#" class="btn btn-light btn-sm mt-2 disabled">Bientôt</a>
+                    <a href="{{ path('app_admin_user_index') }}" class="btn btn-light btn-sm mt-2">Gérer</a>
                 </div>
             </div>
         </div>
@@ -140,6 +140,12 @@
                         </a>
                         <a href="{{ path('app_admin_customer_index') }}" class="list-group-item list-group-item-action">
                             <i class="bi bi-people me-2"></i> Gérer les clients
+                        </a>
+                        <a href="{{ path('app_admin_user_index') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-person-badge me-2"></i> Gérer les utilisateurs
+                        </a>
+                        <a href="{{ path('app_account_password') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-key me-2"></i> Changer mon mot de passe
                         </a>
                     </div>
                 </div>

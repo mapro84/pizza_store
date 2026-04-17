@@ -1,44 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Compte - Bella Napoli{% endblock %}
+{% block title %}{{ 'account.title'|trans }} - Bella Napoli{% endblock %}
 
 {% block body %}
 <div class="container py-5">
     <div class="row">
         <div class="col-md-3">
-            <div class="list-group">
+            <div class="list-group mb-4">
                 <a href="{{ path('app_account') }}" class="list-group-item list-group-item-action active">
-                    <i class="bi bi-person me-2"></i>Mon profil
+                    <i class="bi bi-house me-2"></i>{{ 'nav.my_account'|trans }}
+                </a>
+                <a href="{{ path('app_account_profile') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-person me-2"></i>{{ 'account.profile'|trans }}
+                </a>
+                <a href="{{ path('app_account_orders') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-receipt me-2"></i>{{ 'nav.my_orders'|trans }}
                 </a>
                 <a href="{{ path('app_account_edit') }}" class="list-group-item list-group-item-action">
-                    <i class="bi bi-pencil me-2"></i>Modifier mes infos
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="bi bi-receipt me-2"></i>Mes commandes
+                    <i class="bi bi-pencil me-2"></i>{{ 'account.edit'|trans }}
                 </a>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card shadow">
                 <div class="card-header bg-danger text-white">
-                    <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Mon Compte</h4>
+                    <h4 class="mb-0"><i class="bi bi-house me-2"></i>{{ 'nav.my_account'|trans }}</h4>
                 </div>
                 <div class="card-body">
                     {% if customer %}
                     <div class="row mb-4">
                         <div class="col-md-6">
-                            <h5 class="text-muted mb-3">Informations personnelles</h5>
-                            <p><strong>Nom:</strong> {{ customer.fullName }}</p>
-                            <p><strong>Email:</strong> {{ customer.email }}</p>
-                            <p><strong>Téléphone:</strong> {{ customer.phone ?: 'Non renseigné' }}</p>
-                            <p><strong>Adresse:</strong> {{ customer.fullAddress ?: 'Non renseignée' }}</p>
+                            <h5 class="text-muted mb-3 border-bottom pb-2">{{ 'account.personal_info'|trans }}</h5>
+                            <p><strong>{{ 'account.name'|trans }}:</strong> {{ customer.fullName|default('—') }}</p>
+                            <p><strong>{{ 'account.email'|trans }}:</strong> {{ app.user.email }}</p>
+                            <p><strong>{{ 'account.phone'|trans }}:</strong> {{ customer.phone ?: '—' }}</p>
+                            <p><strong>{{ 'account.address'|trans }}:</strong> {{ customer.fullAddress ?: '—' }}</p>
                         </div>
                         <div class="col-md-6">
-                            <h5 class="text-muted mb-3">Programme de fidélité</h5>
+                            <h5 class="text-muted mb-3 border-bottom pb-2">{{ 'account.loyalty_program'|trans }}</h5>
                             <div class="text-center p-4 bg-light rounded">
                                 <i class="bi bi-star-fill text-warning fs-1"></i>
                                 <h2 class="my-2">{{ customer.loyaltyPoints ?: 0 }}</h2>
-                                <p class="text-muted mb-0">points de fidélité</p>
+                                <p class="text-muted mb-0">{{ 'account.loyalty_points'|trans }}</p>
                                 <small class="text-muted">1 point = 1€ de réduction</small>
                             </div>
                         </div>
@@ -46,28 +49,33 @@
                     {% else %}
                     <div class="alert alert-info">
                         <i class="bi bi-info-circle me-2"></i>
-                        Vos informations personnelles ne sont pas disponibles.
+                        {{ 'account.not_provided'|trans }}
                     </div>
                     {% endif %}
 
                     <hr>
 
-                    <h5 class="text-muted mb-3">Mes commandes récentes</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-muted mb-0">{{ 'nav.my_orders'|trans }}</h5>
+                        <a href="{{ path('app_account_orders') }}" class="btn btn-sm btn-outline-danger">
+                            {{ 'account.view'|trans }} →
+                        </a>
+                    </div>
                     {% if orders|length > 0 %}
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>N° Commande</th>
-                                    <th>Date</th>
-                                    <th>Montant</th>
-                                    <th>Paiement</th>
-                                    <th>Statut</th>
+                                    <th>{{ 'account.order_number'|trans }}</th>
+                                    <th>{{ 'account.date'|trans }}</th>
+                                    <th>{{ 'account.amount'|trans }}</th>
+                                    <th>{{ 'account.payment_method'|trans }}</th>
+                                    <th>{{ 'account.status'|trans }}</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for order in orders|slice(0, 10) %}
+                                {% for order in orders|slice(0, 5) %}
                                 <tr>
                                     <td><strong>{{ order.orderNumber }}</strong></td>
                                     <td>{{ order.orderedAt|date('d/m/Y H:i') }}</td>
@@ -91,9 +99,9 @@
                     {% else %}
                     <div class="text-center py-4">
                         <i class="bi bi-bag text-muted fs-1"></i>
-                        <p class="text-muted mt-2">Vous n'avez pas encore passé de commande.</p>
+                        <p class="text-muted mt-2">{{ 'account.no_orders'|trans }}</p>
                         <a href="{{ path('app_pizza_index') }}" class="btn btn-danger">
-                            <i class="bi bi-cart-plus me-2"></i>Commander maintenant
+                            <i class="bi bi-cart-plus me-2"></i>{{ 'account.order_again'|trans }}
                         </a>
                     </div>
                     {% endif %}
