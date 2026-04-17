@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plan du Site - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <h1 class="mb-4"><i class="bi bi-map"></i> Plan du Site</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="bi bi-house"></i> Navigation</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_homepage') }}" class="text-decoration-none">Accueil</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_pizza_index') }}" class="text-decoration-none">Menu / Nos Pizzas</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_pizza_show', {id: 1}) }}" class="text-decoration-none">Margherita</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_pizza_show', {id: 2}) }}" class="text-decoration-none">Pepperoni</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_pizza_show', {id: 3}) }}" class="text-decoration-none">Quattro Formaggi</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="bi bi-cart3"></i> Commande</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_cart') }}" class="text-decoration-none">Panier</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_checkout') }}" class="text-decoration-none">Finaliser la commande</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_payment_test') }}" class="text-decoration-none">Paiement (Test)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-file-text"></i> Informations légales</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_legal') }}" class="text-decoration-none">Mentions Légales</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_cgu') }}" class="text-decoration-none">CGU</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_cgv') }}" class="text-decoration-none">CGV</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-question-circle"></i> Aide</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="{{ path('app_contact') }}" class="text-decoration-none">Contact</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-chevron-right text-danger me-2"></i>
+                            <a href="#" class="text-decoration-none">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4">
+        <a href="{{ path('app_homepage') }}" class="btn btn-danger">
+            <i class="bi bi-house"></i> Retour à l'accueil
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pizza.name }} - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_homepage') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_pizza_index') }}">Menu</a></li>
+            <li class="breadcrumb-item active">{{ pizza.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-7">
+            <img src="{{ pizza.image }}" class="img-fluid rounded" alt="{{ pizza.name }}">
+        </div>
+        <div class="col-md-5">
+            <h1>{{ pizza.name }}</h1>
+            <p class="text-muted">{{ pizza.category }}</p>
+            <h2 class="price mb-4">{{ pizza.price|number_format(2, ',', ' ') }} €</h2>
+            
+            <div class="mb-4">
+                <h5>Description</h5>
+                <p>{{ pizza.description }}</p>
+            </div>
+
+            <div class="mb-4">
+                <h5>Ingrédients</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for ingredient in pizza.ingredients %}
+                    <span class="badge bg-danger">{{ ingredient }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h5>Tailles disponibles</h5>
+                <div class="d-flex gap-3">
+                    <div class="text-center">
+                        <span class="badge bg-secondary">Petite</span>
+                        <p class="small mb-0">{{ (pizza.price * 0.8)|number_format(2, ',', ' ') }} €</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="badge bg-danger">Moyenne</span>
+                        <p class="small mb-0">{{ pizza.price|number_format(2, ',', ' ') }} €</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="badge bg-dark">Grande</span>
+                        <p class="small mb-0">{{ (pizza.price * 1.4)|number_format(2, ',', ' ') }} €</p>
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" action="{{ path('app_cart_add', {id: pizza.id}) }}">
+                <div class="mb-3">
+                    <label class="form-label">Choisir la taille</label>
+                    <select name="size" class="form-select">
+                        <option value="petite">Petite (-20%)</option>
+                        <option value="moyenne" selected>Moyenne</option>
+                        <option value="grande">Grande (+40%)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-danger btn-lg w-100">
+                    <i class="bi bi-cart-plus"></i> Ajouter au panier
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.price { color: #dc3545; font-weight: bold; }
+.breadcrumb { background: transparent; padding: 0; }
+</style>
+{% endblock %}

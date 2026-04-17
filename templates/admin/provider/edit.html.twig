@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ provider.name }} - Bella Napoli Admin{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-pencil"></i> Modifier : {{ provider.name }}</h1>
+        <a href="{{ path('app_admin_provider_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nom de l'entreprise *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ provider.name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Type *</label>
+                            <select class="form-select" id="type" name="type" required>
+                                <option value="ingredient" {{ provider.type == 'ingredient' ? 'selected' }}>Ingrédients</option>
+                                <option value="material" {{ provider.type == 'material' ? 'selected' }}>Matériaux</option>
+                                <option value="both" {{ provider.type == 'both' ? 'selected' }}>Les deux</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="contact_name" class="form-label">Nom du contact</label>
+                            <input type="text" class="form-control" id="contact_name" name="contact_name" value="{{ provider.contactName }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ provider.email }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ provider.phone }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="postal_code" class="form-label">Code postal</label>
+                            <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{ provider.postalCode }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Adresse</label>
+                    <textarea class="form-control" id="address" name="address" rows="2">{{ provider.address }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="city" class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="city" name="city" value="{{ provider.city }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="notes" class="form-label">Notes</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="3">{{ provider.notes }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

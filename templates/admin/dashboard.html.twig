@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord - Bella Napoli Admin{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-speedometer2"></i> Tableau de bord</h1>
+        <div>
+            <span class="me-3">Connecté: <strong>{{ app.user.username }}</strong></span>
+            <a href="{{ path('app_admin_logout') }}" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-box-arrow-right"></i> Déconnexion
+            </a>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-2">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-ingredient fs-1"></i>
+                    <h3>{{ stats.ingredients }}</h3>
+                    <small>Ingrédients</small>
+                    <br>
+                    <a href="{{ path('app_admin_ingredient_index') }}" class="btn btn-light btn-sm mt-2">Gérer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-pizza fs-1"></i>
+                    <h3>{{ stats.pizzas }}</h3>
+                    <small>Pizzas</small>
+                    <br>
+                    <a href="{{ path('app_admin_pizza_index') }}" class="btn btn-light btn-sm mt-2">Gérer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-truck fs-1"></i>
+                    <h3>{{ stats.providers }}</h3>
+                    <small>Fournisseurs</small>
+                    <br>
+                    <a href="{{ path('app_admin_provider_index') }}" class="btn btn-light btn-sm mt-2">Gérer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-warning text-dark">
+                <div class="card-body text-center">
+                    <i class="bi bi-box-seam fs-1"></i>
+                    <h3>{{ stats.orders }}</h3>
+                    <small>Commandes</small>
+                    <br>
+                    <a href="{{ path('app_admin_provider_order_index') }}" class="btn btn-dark btn-sm mt-2">Gérer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-danger text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-people fs-1"></i>
+                    <h3>{{ stats.customers }}</h3>
+                    <small>Clients</small>
+                    <br>
+                    <a href="{{ path('app_admin_customer_index') }}" class="btn btn-light btn-sm mt-2">Gérer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card bg-secondary text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-bar-chart fs-1"></i>
+                    <h3>-</h3>
+                    <small>Stats</small>
+                    <br>
+                    <a href="#" class="btn btn-light btn-sm mt-2 disabled">Bientôt</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Commandes en attente</h5>
+                </div>
+                <div class="card-body">
+                    {% if pending_orders is empty %}
+                        <p class="text-muted">Aucune commande en attente</p>
+                    {% else %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Fournisseur</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in pending_orders %}
+                                <tr>
+                                    <td>{{ order.orderNumber }}</td>
+                                    <td>{{ order.provider.name }}</td>
+                                    <td>{{ order.totalAmount|number_format(2, ',', ' ') }} €</td>
+                                    <td><span class="badge bg-warning">{{ order.statusLabel }}</span></td>
+                                    <td><a href="{{ path('app_admin_provider_order_show', {id: order.id}) }}" class="btn btn-sm btn-outline-primary">Voir</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-list"></i> Navigation rapide</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ path('app_admin_ingredient_index') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-carrot me-2"></i> Gérer les ingrédients
+                        </a>
+                        <a href="{{ path('app_admin_pizza_index') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-pizza me-2"></i> Gérer les pizzas (recettes)
+                        </a>
+                        <a href="{{ path('app_admin_provider_index') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-truck me-2"></i> Gérer les fournisseurs
+                        </a>
+                        <a href="{{ path('app_admin_provider_order_new') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-plus-circle me-2"></i> Nouvelle commande fournisseur
+                        </a>
+                        <a href="{{ path('app_admin_customer_index') }}" class="list-group-item list-group-item-action">
+                            <i class="bi bi-people me-2"></i> Gérer les clients
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

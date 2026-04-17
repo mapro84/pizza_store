@@ -1,0 +1,74 @@
+<!-- templates/partials/_footer.html.twig -->
+<footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Colonne 1 : Société -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="mb-3">🍕 Bella Napoli</h5>
+                <p class="text-muted">
+                    Pizzeria artisanale depuis 2026. 
+                    Livraison rapide à Draguignan et environs.
+                </p>
+                <div class="d-flex gap-2">
+                    <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Colonne 2 : Liens rapides -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h6 class="mb-3">Navigation</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('app_homepage') }}" class="text-white-50 text-decoration-none">Accueil</a></li>
+                    <li><a href="{{ path('app_pizza_index') }}" class="text-white-50 text-decoration-none">Menu</a></li>
+                    <li><a href="{{ path('app_cart') }}" class="text-white-50 text-decoration-none">Panier</a></li>
+                    <li><a href="{{ path('app_sitemap') }}" class="text-white-50 text-decoration-none">Plan du site</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne 3 : Services -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h6 class="mb-3">Services</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white-50 text-decoration-none">Livraison</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">À emporter</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Points fidélité</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne 4 : Contact -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h6 class="mb-3">Contact</h6>
+                <p class="text-muted mb-1">📍 Draguignan (83)</p>
+                <p class="text-muted mb-1">☎️ 04 94 XX XX XX</p>
+                <p class="text-muted mb-2">📧 contact@bellanapoli.fr</p>
+                <a href="{{ path('app_contact') }}" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-envelope"></i> Nous contacter
+                </a>
+                <small class="text-muted d-block mt-3">
+                    Livraison dès 18h • Fermé le lundi
+                </small>
+            </div>
+        </div>
+
+        <!-- Liens légaux -->
+        <hr class="my-4">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="{{ path('app_legal') }}" class="text-white-50 text-decoration-none me-3">Mentions Légales</a>
+                <a href="{{ path('app_cgu') }}" class="text-white-50 text-decoration-none me-3">CGU</a>
+                <a href="{{ path('app_cgv') }}" class="text-white-50 text-decoration-none me-3">CGV</a>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <hr class="my-4">
+        <div class="text-center">
+            <p class="mb-0 text-white-50">
+                © {{ "now"|date("Y") }} Bella Napoli. 
+                Tous droits réservés.
+            </p>
+        </div>
+    </div>
+</footer>

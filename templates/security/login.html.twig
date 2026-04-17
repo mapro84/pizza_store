@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0"><i class="bi bi-person-circle"></i> Bella Napoli</h4>
+                    <small>Connexion</small>
+                </div>
+                <div class="card-body">
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            Identifiant ou mot de passe incorrect
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{{ is_admin ? path('app_admin_login_check') : path('app_login_check') }}">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Email / Identifiant</label>
+                            <input type="text" class="form-control" id="username" name="_username" 
+                                   value="{{ last_username }}" required autofocus>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="_password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100 mb-3">
+                            <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                        </button>
+                    </form>
+                    
+                    <hr>
+                    <div class="text-center">
+                        <p class="text-muted small mb-2">Pas encore de compte ?</p>
+                        <a href="{{ path('app_checkout') }}" class="text-decoration-none">
+                            Créez-en un lors de votre commande
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <small>
+                        <a href="{{ path('app_homepage') }}">← Retour au site</a>
+                        <span class="text-muted"> | </span>
+                        <a href="{{ path('app_admin_login') }}">Espace admin</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+body { background-color: #f8f9fa; }
+</style>
+{% endblock %}

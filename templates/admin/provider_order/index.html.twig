@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes fournisseurs - Bella Napoli Admin{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-box-seam"></i> Commandes fournisseurs</h1>
+        <div>
+            <a href="{{ path('app_admin_dashboard') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Retour
+            </a>
+            <a href="{{ path('app_admin_provider_order_new') }}" class="btn btn-danger">
+                <i class="bi bi-plus-circle"></i> Nouvelle commande
+            </a>
+        </div>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>N° Commande</th>
+                        <th>Fournisseur</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th>Date création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td><strong>{{ order.orderNumber }}</strong></td>
+                        <td>{{ order.provider.name }}</td>
+                        <td>{{ order.totalAmount|number_format(2, ',', ' ') }} €</td>
+                        <td>
+                            {% if order.status == 'draft' %}
+                                <span class="badge bg-secondary">Brouillon</span>
+                            {% elseif order.status == 'pending' %}
+                                <span class="badge bg-warning">En attente</span>
+                            {% elseif order.status == 'confirmed' %}
+                                <span class="badge bg-info">Confirmé</span>
+                            {% elseif order.status == 'delivered' %}
+                                <span class="badge bg-success">Livré</span>
+                            {% else %}
+                                <span class="badge bg-danger">Annulé</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ order.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="{{ path('app_admin_provider_order_show', {id: order.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ path('app_admin_provider_order_delete', {id: order.id}) }}" 
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Supprimer cette commande ?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucune commande</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

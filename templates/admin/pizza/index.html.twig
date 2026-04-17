@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pizzas - Bella Napoli Admin{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-pizza"></i> Gestion des pizzas (recettes)</h1>
+        <a href="{{ path('app_admin_dashboard') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pizza in pizzas %}
+                    <tr>
+                        <td>
+                            {% if pizza.image %}
+                                <img src="{{ pizza.image }}" alt="{{ pizza.name }}" style="width: 60px; height: 60px; object-fit: cover;" class="rounded">
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td><strong>{{ pizza.name }}</strong></td>
+                        <td>{{ pizza.description|slice(0, 80) }}{% if pizza.description|length > 80 %}...{% endif %}</td>
+                        <td>{{ pizza.formattedPrice }}</td>
+                        <td>
+                            {% if pizza.isAvailable %}
+                                <span class="badge bg-success">Disponible</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Indisponible</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_admin_pizza_edit', {id: pizza.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

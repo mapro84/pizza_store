@@ -1,0 +1,27 @@
+  {% extends 'base.html.twig' %}
+
+  {% block title %}Welcome !{% endblock %}
+
+{% block body %}
+  <div class="container mt-4">
+    <h1>Bonjour depuis HomeController !</h1>
+    <p>🏠 Page d'accueil Symfony 8</p>
+
+    <p><a href="{{ path('app_article_show', {'id' : 10}) }}">Lire l'article 10</a></p>
+
+    {# Commentaire Twig : Affichage de controller_name #}
+    {{ controller_name }}
+    Artcle N° {{ id }}
+    Nom {{ nom }}
+    Ingédients : 
+    <ul>
+    {% for ingredient in ingredients %}
+        <li>{{ ingredient }}</li>
+    {% endfor %}
+    </ul>
+
+    Dump Nom : {{ dump(nom) | nl2br }}
+    Filtre upper : {{ nom|upper}}
+
+  </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+# Désactiver le listage des répertoires pour la sécurité
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Déterminer le chemin de base (RewriteBase) si nécessaire
+    # RewriteBase /
+
+    # Si le fichier ou le répertoire demandé existe, on le sert directement
+    RewriteCond %{REQUEST_FILENAME} !-f
+    
+    # Sinon, on redirige tout vers index.php (le point d'entrée de Symfony)
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        # Si mod_rewrite n'est pas disponible, on utilise une redirection simple
+        RedirectMatch 302 ^/$ /index.php/
+    </IfModule>
+</IfModule>

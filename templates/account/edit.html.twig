@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_account') }}">Mon compte</a></li>
+            <li class="breadcrumb-item active">Modifier mes informations</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Modifier mes informations</h4>
+        </div>
+        <div class="card-body">
+            {% for flash in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ flash }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" 
+                           value="{{ customer.firstName }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" 
+                           value="{{ customer.lastName }}" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Téléphone</label>
+                <input type="tel" class="form-control" id="phone" name="phone" 
+                       value="{{ customer.phone }}" placeholder="06 12 34 56 78">
+            </div>
+
+            <hr class="my-4">
+            <h5 class="mb-3">Adresse de livraison</h5>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Rue et numéro</label>
+                <input type="text" class="form-control" id="address" name="address" 
+                       value="{{ customer.address }}">
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="postalCode" class="form-label">Code postal</label>
+                    <input type="text" class="form-control" id="postalCode" name="postalCode" 
+                           value="{{ customer.postalCode }}">
+                </div>
+                <div class="col-md-8 mb-3">
+                    <label for="city" class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="city" name="city" 
+                           value="{{ customer.city }}">
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('app_account') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Annuler
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-check-lg me-2"></i>Enregistrer
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

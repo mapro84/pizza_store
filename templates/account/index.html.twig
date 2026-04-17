@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{{ path('app_account') }}" class="list-group-item list-group-item-action active">
+                    <i class="bi bi-person me-2"></i>Mon profil
+                </a>
+                <a href="{{ path('app_account_edit') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-pencil me-2"></i>Modifier mes infos
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-receipt me-2"></i>Mes commandes
+                </a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Mon Compte</h4>
+                </div>
+                <div class="card-body">
+                    {% if customer %}
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="text-muted mb-3">Informations personnelles</h5>
+                            <p><strong>Nom:</strong> {{ customer.fullName }}</p>
+                            <p><strong>Email:</strong> {{ customer.email }}</p>
+                            <p><strong>Téléphone:</strong> {{ customer.phone ?: 'Non renseigné' }}</p>
+                            <p><strong>Adresse:</strong> {{ customer.fullAddress ?: 'Non renseignée' }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-muted mb-3">Programme de fidélité</h5>
+                            <div class="text-center p-4 bg-light rounded">
+                                <i class="bi bi-star-fill text-warning fs-1"></i>
+                                <h2 class="my-2">{{ customer.loyaltyPoints ?: 0 }}</h2>
+                                <p class="text-muted mb-0">points de fidélité</p>
+                                <small class="text-muted">1 point = 1€ de réduction</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Vos informations personnelles ne sont pas disponibles.
+                    </div>
+                    {% endif %}
+
+                    <hr>
+
+                    <h5 class="text-muted mb-3">Mes commandes récentes</h5>
+                    {% if orders|length > 0 %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>N° Commande</th>
+                                    <th>Date</th>
+                                    <th>Montant</th>
+                                    <th>Paiement</th>
+                                    <th>Statut</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders|slice(0, 10) %}
+                                <tr>
+                                    <td><strong>{{ order.orderNumber }}</strong></td>
+                                    <td>{{ order.orderedAt|date('d/m/Y H:i') }}</td>
+                                    <td>{{ order.totalAmount|number_format(2, ',', ' ') }} €</td>
+                                    <td>{{ order.paymentMethodLabel }}</td>
+                                    <td>
+                                        <span class="badge {{ order.statusBadgeClass }}">
+                                            {{ order.statusLabel }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_account_order', {id: order.id}) }}" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="bi bi-bag text-muted fs-1"></i>
+                        <p class="text-muted mt-2">Vous n'avez pas encore passé de commande.</p>
+                        <a href="{{ path('app_pizza_index') }}" class="btn btn-danger">
+                            <i class="bi bi-cart-plus me-2"></i>Commander maintenant
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

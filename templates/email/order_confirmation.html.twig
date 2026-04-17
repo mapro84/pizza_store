@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de commande - Bella Napoli</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    
+    <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+        <h1 style="color: white; margin: 0; font-size: 28px;">
+            🍕 Bella Napoli
+        </h1>
+        <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">
+            Votre pizzeria artisanale
+        </p>
+    </div>
+    
+    <div style="background: #fff; padding: 30px; border: 1px solid #ddd; border-top: none;">
+        <h2 style="color: #28a745; margin-top: 0;">
+            ✓ Commande confirmée !
+        </h2>
+        
+        <p>Bonjour <strong>{{ customerName }}</strong>,</p>
+        
+        <p>Merci pour votre commande ! Votre pizza sera préparée avec amour par notre équipe.</p>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0; color: #dc3545;">Récapitulatif de commande</h3>
+            <p><strong>Numéro de commande :</strong> {{ orderNumber }}</p>
+            <p><strong>Date :</strong> {{ orderDate|date('d/m/Y à H:i') }}</p>
+            <hr>
+            <p><strong>Mode de paiement :</strong> {{ paymentMethod }}</p>
+            <p><strong>Montant total :</strong> <span style="font-size: 1.2em; color: #dc3545; font-weight: bold;">{{ totalAmount|number_format(2, ',', ' ') }} €</span></p>
+        </div>
+        
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+            <p style="margin: 0;">
+                <i class="bi bi-star-fill" style="color: #ffc107;"></i>
+                <strong>+{{ loyaltyEarned }} points de fidélité</strong> ont été ajoutés à votre compte !
+            </p>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <h3 style="color: #333;">📍 Prochaines étapes</h3>
+            <ul style="padding-left: 20px;">
+                <li><strong>15-20 min :</strong> Préparation de votre pizza</li>
+                <li><strong>30-45 min :</strong> Livraison à votre adresse</li>
+            </ul>
+        </div>
+        
+        <p style="margin-top: 30px;">
+            Une question ? Contactez-nous : <a href="mailto:contact@bellanapoli.fr" style="color: #dc3545;">contact@bellanapoli.fr</a>
+        </p>
+    </div>
+    
+    <div style="background: #343a40; color: #fff; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
+        <p style="margin: 0; font-size: 14px;">
+            Bella Napoli - Votre pizzeria artisanale<br>
+            <small style="opacity: 0.7;">Service client : 06 12 34 56 78</small>
+        </p>
+    </div>
+</body>
+</html>

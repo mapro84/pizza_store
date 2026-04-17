@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-4"><i class="bi bi-envelope"></i> Contactez-nous</h1>
+            <p class="text-muted mb-4">
+                Une question, une suggestion ? N'hésitez pas à nous contacter, 
+                notre équipe vous répondra dans les plus brefs délais.
+            </p>
+
+            {% if success %}
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle"></i>
+                    <strong>Message envoyé !</strong>
+                    <p class="mb-0">Merci pour votre message. Nous vous répondrons dans les plus brefs délais.</p>
+                </div>
+            {% endif %}
+
+            {% if error %}
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle"></i> {{ error }}
+                </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ path('app_contact') }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Nom complet <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       value="{{ formData.name }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       value="{{ formData.email }}" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                       value="{{ formData.phone }}" placeholder="06 XX XX XX XX">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="subject" class="form-label">Sujet</label>
+                                <select class="form-select" id="subject" name="subject">
+                                    <option value="">-- Choisir un sujet --</option>
+                                    <option value="Commande" {{ formData.subject == 'Commande' ? 'selected' }}>Question sur une commande</option>
+                                    <option value="Livraison" {{ formData.subject == 'Livraison' ? 'selected' }}>Problème de livraison</option>
+                                    <option value="Produit" {{ formData.subject == 'Produit' ? 'selected' }}>Question sur un produit</option>
+                                    <option value="Partenariat" {{ formData.subject == 'Partenariat' ? 'selected' }}>Proposition de partenariat</option>
+                                    <option value="Emploi" {{ formData.subject == 'Emploi' ? 'selected' }}>Offre d'emploi</option>
+                                    <option value="Autre" {{ formData.subject == 'Autre' ? 'selected' }}>Autre</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required>{{ formData.message }}</textarea>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="consent" required>
+                            <label class="form-check-label small text-muted" for="consent">
+                                J'accepte que mes données soient utilisées pour répondre à ma demande. 
+                                <a href="{{ path('app_cgv') }}">Politique de confidentialité</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="bi bi-send"></i> Envoyer le message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-shop"></i> Notre pizzeria</h5>
+                    <p class="card-text">
+                        <strong>Bella Napoli</strong><br>
+                        15 Rue de la Pizza<br>
+                        83300 Draguignan
+                    </p>
+                    <p class="mb-1">
+                        <i class="bi bi-telephone me-2"></i>04 94 XX XX XX
+                    </p>
+                    <p class="mb-1">
+                        <i class="bi bi-envelope me-2"></i>contact@bellanapoli.fr
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-clock"></i> Horaires</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex justify-content-between">
+                            <span>Lundi</span>
+                            <span class="text-danger fw-bold">Fermé</span>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                            <span>Mar - Dim</span>
+                            <span>18h00 - 22h30</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-truck"></i> Livraison</h5>
+                    <p class="small text-muted mb-2">
+                        Nous livrons dans un rayon de 10 km autour de Draguignan.
+                    </p>
+                    <p class="small mb-0">
+                        <i class="bi bi-check-circle text-success me-1"></i>
+                        Livraison offerte dès 15€ d'achat
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-share"></i> Suivez-nous</h5>
+                    <div class="d-flex gap-3 fs-3">
+                        <a href="#" class="text-danger"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-danger"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-danger"><i class="bi bi-whatsapp"></i></a>
+                        <a href="#" class="text-danger"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card { border-radius: 10px; }
+</style>
+{% endblock %}

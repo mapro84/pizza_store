@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ order.orderNumber }} - Bella Napoli Admin{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-receipt"></i> Commande {{ order.orderNumber }}</h1>
+        <a href="{{ path('app_admin_provider_order_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Articles commandés</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Article</th>
+                                <th>Type</th>
+                                <th>Qté</th>
+                                <th>Prix unit.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.items %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    {% if item.itemType == 'ingredient' %}
+                                        <span class="badge bg-warning">Ingrédient</span>
+                                    {% else %}
+                                        <span class="badge bg-info">Matériau</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ item.quantity }} {{ item.unit }}</td>
+                                <td>{{ item.unitPrice|number_format(2, ',', ' ') }} €</td>
+                                <td>{{ item.formattedTotalPrice }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="text-end"><strong>Total :</strong></td>
+                                <td><strong>{{ order.totalAmount|number_format(2, ',', ' ') }} €</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            {% if order.notes %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Notes</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{ order.notes }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Informations</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Fournisseur :</strong> {{ order.provider.name }}</p>
+                    <p><strong>Contact :</strong> {{ order.provider.contactName ?: '-' }}</p>
+                    <p><strong>Email :</strong> {{ order.provider.email ?: '-' }}</p>
+                    <p><strong>Téléphone :</strong> {{ order.provider.phone ?: '-' }}</p>
+                    <hr>
+                    <p><strong>Créée le :</strong> {{ order.createdAt|date('d/m/Y H:i') }}</p>
+                    {% if order.deliveredAt %}
+                    <p><strong>Livrée le :</strong> {{ order.deliveredAt|date('d/m/Y H:i') }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Statut</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ path('app_admin_provider_order_status', {id: order.id}) }}">
+                        <div class="mb-3">
+                            <select class="form-select" name="status">
+                                <option value="draft" {{ order.status == 'draft' ? 'selected' }}>Brouillon</option>
+                                <option value="pending" {{ order.status == 'pending' ? 'selected' }}>En attente</option>
+                                <option value="confirmed" {{ order.status == 'confirmed' ? 'selected' }}>Confirmé</option>
+                                <option value="delivered" {{ order.status == 'delivered' ? 'selected' }}>Livré</option>
+                                <option value="cancelled" {{ order.status == 'cancelled' ? 'selected' }}>Annulé</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-check-circle"></i> Mettre à jour
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

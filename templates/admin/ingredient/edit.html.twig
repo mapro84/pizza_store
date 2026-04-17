@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ ingredient.name }} - Bella Napoli Admin{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-pencil"></i> Modifier : {{ ingredient.name }}</h1>
+        <a href="{{ path('app_admin_ingredient_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Retour
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nom *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ ingredient.name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Prix (€) *</label>
+                            <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ ingredient.price }}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="position" class="form-label">Position</label>
+                            <input type="number" class="form-control" id="position" name="position" value="{{ ingredient.position }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="allergen_type" class="form-label">Type d'allergène</label>
+                            <select class="form-select" id="allergen_type" name="allergen_type">
+                                <option value="">Aucun</option>
+                                <option value="lait" {{ ingredient.allergenType == 'lait' ? 'selected' }}>Lait</option>
+                                <option value="gluten" {{ ingredient.allergenType == 'gluten' ? 'selected' }}>Gluten</option>
+                                <option value="oeuf" {{ ingredient.allergenType == 'oeuf' ? 'selected' }}>Oeuf</option>
+                                <option value="arachide" {{ ingredient.allergenType == 'arachide' ? 'selected' }}>Arachide</option>
+                                <option value="fruits_coquille" {{ ingredient.allergenType == 'fruits_coquille' ? 'selected' }}>Fruits à coquille</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="is_allergen" name="is_allergen" {{ ingredient.isAllergen ? 'checked' }}>
+                    <label class="form-check-label" for="is_allergen">
+                        Cet ingrédient est un allergène
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

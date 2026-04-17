@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notre Menu - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <h1 class="mb-4">Notre Menu</h1>
+    
+    <div class="row">
+        {% for pizza in pizzas %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ pizza.image }}" class="card-img-top" alt="{{ pizza.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pizza.name }}</h5>
+                    <p class="text-muted">{{ pizza.description }}</p>
+                    <p class="price">{{ pizza.price|number_format(2, ',', ' ') }} €</p>
+                    <a href="{{ path('app_pizza_show', {id: pizza.id}) }}" class="btn btn-outline-danger">Commander</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.card-img-top { height: 200px; object-fit: cover; }
+.price { color: #dc3545; font-weight: bold; font-size: 1.5rem; }
+</style>
+{% endblock %}

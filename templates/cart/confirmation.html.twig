@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande confirmée - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5 text-center">
+    <div class="alert alert-success py-5">
+        <i class="bi bi-check-circle-fill fs-1 text-success"></i>
+        <h1 class="mt-3">Merci {{ name }} !</h1>
+        <h2 class="mt-3">Votre commande est confirmée</h2>
+        <p class="lead">Numéro de commande: <strong>{{ order_number }}</strong></p>
+        
+        {% if loyalty_discount > 0 %}
+        <div class="alert alert-success mt-3">
+            <i class="bi bi-star-fill"></i>
+            <strong>Réduction fidélité appliquée !</strong> Vous avez économisé <strong>{{ loyalty_discount|number_format(2, ',', ' ') }} €</strong>.
+        </div>
+        {% endif %}
+        
+        {% if account_created %}
+        <div class="alert alert-warning mt-3">
+            <i class="bi bi-gift"></i>
+            <strong>Compte créé !</strong> Bienvenue chez Bella Napoli !
+        </div>
+        {% endif %}
+        
+        <div class="alert alert-info mt-3">
+            <i class="bi bi-star-fill text-warning me-2"></i>
+            <strong>+{{ loyalty_earned }} points de fidélité</strong> ajoutés à votre compte !
+            <br><small>Vos points seront disponibles lors de votre prochaine commande.</small>
+        </div>
+        
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5><i class="bi bi-receipt"></i> Récapitulatif</h5>
+                        <hr>
+                        <p class="mb-1"><strong>Mode de paiement:</strong> 
+                            {% if payment_method == 'carte' %}
+                                <i class="bi bi-credit-card"></i> Carte bancaire
+                            {% elseif payment_method == 'especes' %}
+                                <i class="bi bi-cash-stack"></i> Espèces
+                            {% elseif payment_method == 'paypal' %}
+                                <i class="bi bi-paypal"></i> PayPal
+                            {% else %}
+                                <i class="bi bi-phone"></i> Swish
+                            {% endif %}
+                        </p>
+                        <hr>
+                        <p class="text-muted">
+                            <i class="bi bi-clock"></i> Votre pizza sera prête dans <strong>15-20 minutes</strong><br>
+                            <i class="bi bi-truck"></i> Livraison estimée: <strong>30-45 minutes</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{{ path('app_homepage') }}" class="btn btn-danger btn-lg mt-4">
+            <i class="bi bi-house"></i> Retour à l'accueil
+        </a>
+    </div>
+</div>
+{% endblock %}
