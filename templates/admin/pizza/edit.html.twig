@@ -34,10 +34,14 @@
                     <textarea class="form-control" id="description" name="description" rows="3">{{ pizza.description }}</textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label for="image" class="form-label">URL de l'image</label>
-                    <input type="url" class="form-control" id="image" name="image" value="{{ pizza.image }}">
-                </div>
+<div class="mb-3">
+                            <label for="imageFile" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/jpeg,image/png,image/gif,image/webp">
+                            <small class="text-muted">JPG, PNG, GIF, WebP. Max 2 Mo.</small>
+                            {% if pizza.image %}
+                            <br><small class="text-muted">Image actuelle: {{ pizza.image }}</small>
+                            {% endif %}
+                        </div>
 
                 <div class="row">
                     <div class="col-md-6">

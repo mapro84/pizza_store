@@ -10,7 +10,16 @@
         {% for pizza in pizzas %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                <img src="{{ pizza.image }}" class="card-img-top" alt="{{ pizza.name }}">
+                {% if pizza.image %}
+    {% if pizza.image starts with 'http' %}
+        {% set image_src = pizza.image %}
+    {% else %}
+        {% set image_src = '/pizza_shop/images/' ~ pizza.image|replace({'/images/': '', './images/': '', './': '', '/images/': ''}) %}
+    {% endif %}
+{% else %}
+    {% set image_src = 'https://placehold.co/400x300?text=Pas+image' %}
+{% endif %}
+                <img src="{{ image_src }}" class="card-img-top" alt="{{ pizza.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ pizza.name }}</h5>
                     <p class="text-muted">{{ pizza.description }}</p>

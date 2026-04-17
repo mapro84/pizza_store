@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\PasswordValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -249,7 +250,8 @@ final class CartController extends AbstractController
         \Doctrine\ORM\EntityManagerInterface $em,
         \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $hasher,
         \Symfony\Component\Mailer\MailerInterface $mailer,
-        \Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface $params
+        \Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface $params,
+        PasswordValidator $passwordValidator
     ): Response {
         $session = $request->getSession();
         $cart = $session->get('cart', []);
@@ -275,34 +277,47 @@ final class CartController extends AbstractController
         $fullName = trim($firstName . ' ' . $lastName);
 
         $accountCreated = false;
+        $passwordError = false;
         if ($createAccount && $email && $password) {
             $existingUser = $em->getRepository(\App\Entity\User::class)
                 ->findOneBy(['email' => $email]);
             
             if (!$existingUser) {
-                $user = new \App\Entity\User();
-                $user->setUsername($username ?: $email);
-                $user->setEmail($email);
-                $user->setFirstName($firstName);
-                $user->setLastName($lastName);
-                $user->setPhone($phone);
-                $hashedPassword = $hasher->hashPassword($user, $password);
-                $user->setPassword($hashedPassword);
-                $user->setRoles(['ROLE_USER']);
-                
-                $em->persist($user);
-                $em->flush();
-                
-                $customer = new \App\Entity\Customer();
-                $customer->setUser($user);
-                $customer->setAddress($address);
-                $customer->setLoyaltyPoints(0);
-                
-                $em->persist($customer);
-                $em->flush();
-                
-                $accountCreated = true;
+                $errors = $passwordValidator->validate($password);
+                if (!empty($errors)) {
+                    $passwordError = true;
+                    $session->set('password_errors', $errors);
+                } else {
+                    $user = new \App\Entity\User();
+                    $user->setUsername($username ?: $email);
+                    $user->setEmail($email);
+                    $user->setFirstName($firstName);
+                    $user->setLastName($lastName);
+                    $user->setPhone($phone);
+                    $hashedPassword = $hasher->hashPassword($user, $password);
+                    $user->setPassword($hashedPassword);
+                    $user->setRoles(['ROLE_USER']);
+                    
+                    $em->persist($user);
+                    $em->flush();
+                    
+                    $customer = new \App\Entity\Customer();
+                    $customer->setUser($user);
+                    $customer->setAddress($address);
+                    $customer->setLoyaltyPoints(0);
+                    
+                    $em->persist($customer);
+                    $em->flush();
+                    
+                    $accountCreated = true;
+                }
             }
+        }
+        
+        if ($passwordError) {
+            $session->remove('cart');
+            $session->remove('cart_count');
+            return $this->redirectToRoute('app_checkout');
         }
 
         $userForLookup = $em->getRepository(\App\Entity\User::class)

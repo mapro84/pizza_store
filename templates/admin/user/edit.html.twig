@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'user.edit'|trans }} - {{ user.username }} - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">{{ 'admin.dashboard'|trans }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_user_index') }}">{{ 'admin.users'|trans }}</a></li>
+            <li class="breadcrumb-item active">{{ 'user.edit'|trans }} - {{ user.username }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>{{ 'user.edit'|trans }} - {{ user.username }}</h4>
+                </div>
+                <div class="card-body">
+                    {% for flash in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="bi bi-check-circle me-2"></i>{{ flash }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">{{ 'user.email'|trans }}</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{{ user.email }}" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">{{ 'user.firstname'|trans }}</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" 
+                                       value="{{ user.firstName|default('') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">{{ 'user.lastname'|trans }}</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" 
+                                       value="{{ user.lastName|default('') }}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">{{ 'user.phone'|trans }}</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                   value="{{ user.phone|default('') }}">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">{{ 'user.roles'|trans }}</label>
+                            <div class="border rounded p-3 bg-light">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="role_admin" name="roles[]" 
+                                           value="ROLE_ADMIN" {% if 'ROLE_ADMIN' in user.roles %}checked{% endif %}>
+                                    <label class="form-check-label" for="role_admin">
+                                        <span class="badge bg-danger">{{ 'user.role_admin'|trans }}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-muted">{{ 'user.role_admin_warning'|trans }}</small>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>{{ 'user.cancel'|trans }}
+                            </a>
+                            <div>
+                                <a href="{{ path('app_admin_user_password', {id: user.id}) }}" class="btn btn-warning me-2">
+                                    <i class="bi bi-key me-2"></i>{{ 'user.change_password'|trans }}
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg me-2"></i>{{ 'user.save'|trans }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>{{ 'user.informations'|trans }}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>{{ 'user.username'|trans }}:</strong> {{ user.username }}</p>
+                    <p><strong>{{ 'user.created_at'|trans }}:</strong> {{ user.createdAt|date('d/m/Y H:i') }}</p>
+                    <hr>
+                    <p class="text-muted small">{{ 'user.member_since'|trans }} {{ user.createdAt|date('d/m/Y H:i') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

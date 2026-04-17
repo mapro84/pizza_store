@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'account.profile'|trans }} - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_account') }}">{{ 'nav.my_account'|trans }}</a></li>
+            <li class="breadcrumb-item active">{{ 'account.profile'|trans }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group mb-4">
+                <a href="{{ path('app_account') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-house me-2"></i>{{ 'nav.my_account'|trans }}
+                </a>
+                <a href="{{ path('app_account_profile') }}" class="list-group-item list-group-item-action active">
+                    <i class="bi bi-person me-2"></i>{{ 'account.profile'|trans }}
+                </a>
+                <a href="{{ path('app_account_orders') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-receipt me-2"></i>{{ 'nav.my_orders'|trans }}
+                </a>
+                <a href="{{ path('app_account_edit') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-pencil me-2"></i>{{ 'account.edit'|trans }}
+                </a>
+                <a href="{{ path('app_account_password') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-key me-2"></i>{{ 'account.change_password'|trans }}
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>{{ 'account.profile'|trans }}</h4>
+                </div>
+                <div class="card-body">
+                    {% if customer %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-muted mb-3 border-bottom pb-2">
+                                <i class="bi bi-person-badge me-2"></i>{{ 'account.personal_info'|trans }}
+                            </h5>
+                            <div class="mb-3">
+                                <label class="text-muted small">{{ 'account.name'|trans }}:</label>
+                                <p class="mb-1 fw-bold">{{ customer.fullName|default('—') }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-muted small">{{ 'account.email'|trans }}:</label>
+                                <p class="mb-1 fw-bold">{{ user.email }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-muted small">{{ 'account.phone'|trans }}:</label>
+                                <p class="mb-1 fw-bold">{{ customer.phone ?: '—' }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5 class="text-muted mb-3 border-bottom pb-2">
+                                <i class="bi bi-credit-card me-2"></i>{{ 'account.payment_method'|trans }}
+                            </h5>
+                            <div class="mb-3">
+                                <label class="text-muted small">{{ 'account.favorite_payment'|trans }}:</label>
+                                <p class="mb-1 fw-bold">
+                                    {% if customer.favoritePaymentMethod %}
+                                        {% if customer.favoritePaymentMethod == 'carte' %}
+                                            <i class="bi bi-credit-card-2-front me-1"></i>
+                                        {% elseif customer.favoritePaymentMethod == 'especes' %}
+                                            <i class="bi bi-cash-stack me-1"></i>
+                                        {% elseif customer.favoritePaymentMethod == 'paypal' %}
+                                            <i class="bi bi-paypal me-1"></i>
+                                        {% elseif customer.favoritePaymentMethod == 'swish' %}
+                                            <i class="bi bi-phone me-1"></i>
+                                        {% endif %}
+                                        {{ customer.favoritePaymentMethodLabel }}
+                                    {% else %}
+                                        <span class="text-muted">—</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-muted mb-3 border-bottom pb-2">
+                                <i class="bi bi-geo-alt me-2"></i>{{ 'account.shipping_address'|trans }}
+                            </h5>
+                            <p class="mb-1">
+                                {{ customer.address ?: '—' }}<br>
+                                {{ customer.postalCode ?: '' }} {{ customer.city ?: '' }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        {{ 'account.not_provided'|trans }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body text-center">
+                            <i class="bi bi-receipt fs-1 mb-2"></i>
+                            <h3 class="mb-0">{{ total_orders }}</h3>
+                            <small>{{ 'account.total_orders'|trans }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body text-center">
+                            <i class="bi bi-currency-euro fs-1 mb-2"></i>
+                            <h3 class="mb-0">{{ total_spent|number_format(2, ',', ' ') }}</h3>
+                            <small>{{ 'account.total_spent'|trans }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-warning text-dark mb-4">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star-fill fs-1 mb-2"></i>
+                            <h3 class="mb-0">{{ cumulative_points }}</h3>
+                            <small>{{ 'account.cumulative_points'|trans }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="bi bi-star me-2"></i>{{ 'account.loyalty_program'|trans }}</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="text-warning">
+                        <i class="bi bi-star-fill"></i>
+                        {{ customer ? (customer.loyaltyPoints ?: 0) : 0 }}
+                        <i class="bi bi-star-fill"></i>
+                    </h2>
+                    <p class="text-muted mb-2">{{ 'account.loyalty_points'|trans }}</p>
+                    <small class="text-muted">1 point = 1€ de réduction</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

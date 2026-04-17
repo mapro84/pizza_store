@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier - {{ customer.fullName }} - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">{{ 'admin.dashboard'|trans }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_customer_index') }}">Clients</a></li>
+            <li class="breadcrumb-item active">Modifier - {{ customer.fullName }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Modifier - {{ customer.fullName }}</h4>
+                </div>
+                <div class="card-body">
+                    {% for flash in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="bi bi-check-circle me-2"></i>{{ flash }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" 
+                                       value="{{ customer.firstName|default('') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" 
+                                       value="{{ customer.lastName|default('') }}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                   value="{{ customer.phone|default('') }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Adresse</label>
+                            <input type="text" class="form-control" id="address" name="address" 
+                                   value="{{ customer.address|default('') }}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="postalCode" class="form-label">Code postal</label>
+                                <input type="text" class="form-control" id="postalCode" name="postalCode" 
+                                       value="{{ customer.postalCode|default('') }}">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="city" class="form-label">Ville</label>
+                                <input type="text" class="form-control" id="city" name="city" 
+                                       value="{{ customer.city|default('') }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="loyaltyPoints" class="form-label">Points fidélité</label>
+                                <input type="number" class="form-control" id="loyaltyPoints" name="loyaltyPoints" 
+                                       value="{{ customer.loyaltyPoints|default(0) }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" id="isVip" name="isVip" 
+                                           value="1" {% if customer.isVip %}checked{% endif %}>
+                                    <label class="form-check-label" for="isVip">
+                                        <span class="badge bg-warning">VIP</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('app_admin_customer_index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-2"></i>Enregistrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Informations</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Email:</strong> {{ customer.email|default('-') }}</p>
+                    <p><strong>Inscrit le:</strong> {{ customer.createdAt ? customer.createdAt|date('d/m/Y') : '-' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

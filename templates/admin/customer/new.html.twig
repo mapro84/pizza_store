@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau client - Bella Napoli{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">{{ 'admin.dashboard'|trans }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_customer_index') }}">Clients</a></li>
+            <li class="breadcrumb-item active">Nouveau</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-person-plus me-2"></i>Nouveau client</h4>
+                </div>
+                <div class="card-body">
+                    {% for flash in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="bi bi-check-circle me-2"></i>{{ flash }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nom d'utilisateur *</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Adresse</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="postalCode" class="form-label">Code postal</label>
+                                <input type="text" class="form-control" id="postalCode" name="postalCode">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="city" class="form-label">Ville</label>
+                                <input type="text" class="form-control" id="city" name="city">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="loyaltyPoints" class="form-label">Points fidélité</label>
+                                <input type="number" class="form-control" id="loyaltyPoints" name="loyaltyPoints" value="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" id="isVip" name="isVip" value="1">
+                                    <label class="form-check-label" for="isVip">
+                                        <span class="badge bg-warning">VIP</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('app_admin_customer_index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg me-2"></i>Créer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -19,6 +19,9 @@ class Customer
     #[ORM\JoinColumn(name: 'user_id', nullable: true)]
     private ?User $user = null;
 
+    #[ORM\Column(name: 'created_at', nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $address = null;
 
@@ -34,10 +37,20 @@ class Customer
     #[ORM\Column(name: 'is_vip', nullable: true)]
     private ?bool $isVip = false;
 
+    #[ORM\Column(name: 'favorite_payment_method', length: 50, nullable: true)]
+    private ?string $favoritePaymentMethod = null;
+
+    #[ORM\Column(name: 'has_card_consent', nullable: true)]
+    private ?bool $hasCardConsent = false;
+
+    #[ORM\Column(name: 'masked_card_number', length: 20, nullable: true)]
+    private ?string $maskedCardNumber = null;
+
     public function __construct()
     {
         $this->loyaltyPoints = 0;
         $this->isVip = false;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -177,6 +190,61 @@ class Customer
     public function setIsVip(bool $isVip): static
     {
         $this->isVip = $isVip;
+        return $this;
+    }
+
+    public function getFavoritePaymentMethod(): ?string
+    {
+        return $this->favoritePaymentMethod;
+    }
+
+    public function setFavoritePaymentMethod(?string $favoritePaymentMethod): static
+    {
+        $this->favoritePaymentMethod = $favoritePaymentMethod;
+        return $this;
+    }
+
+    public function hasCardConsent(): ?bool
+    {
+        return $this->hasCardConsent;
+    }
+
+    public function setHasCardConsent(?bool $hasCardConsent): static
+    {
+        $this->hasCardConsent = $hasCardConsent;
+        return $this;
+    }
+
+    public function getMaskedCardNumber(): ?string
+    {
+        return $this->maskedCardNumber;
+    }
+
+    public function setMaskedCardNumber(?string $maskedCardNumber): static
+    {
+        $this->maskedCardNumber = $maskedCardNumber;
+        return $this;
+    }
+
+    public function getFavoritePaymentMethodLabel(): string
+    {
+        return match($this->favoritePaymentMethod) {
+            'carte' => 'Carte bancaire',
+            'especes' => 'Espèces',
+            'paypal' => 'PayPal',
+            'swish' => 'Swish',
+            default => $this->favoritePaymentMethod ?? '—',
+        };
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 }

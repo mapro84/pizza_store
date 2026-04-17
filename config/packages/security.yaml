@@ -18,19 +18,6 @@ security:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
         
-        main:
-            lazy: true
-            provider: app_user_provider
-            form_login:
-                login_path: app_login
-                check_path: app_login_check
-            logout:
-                path: app_logout
-                target: app_homepage
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 604800
-
         admin:
             pattern: ^/admin
             lazy: true
@@ -46,11 +33,25 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800
 
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login_check
+            logout:
+                path: app_logout
+                target: app_homepage
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+
     access_control:
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/admin/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/admin/logout$, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/compte, roles: ROLE_USER }
+        - { path: ^/compte, roles: [ROLE_USER, ROLE_ADMIN] }
 
 when@test:
     security:

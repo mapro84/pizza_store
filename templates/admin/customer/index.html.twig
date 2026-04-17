@@ -3,52 +3,89 @@
 {% block title %}Clients - Bella Napoli Admin{% endblock %}
 
 {% block body %}
-<div class="container-fluid py-4">
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_admin_dashboard') }}">{{ 'admin.dashboard'|trans }}</a></li>
+            <li class="breadcrumb-item active">Clients</li>
+        </ol>
+    </nav>
+
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1><i class="bi bi-people"></i> Gestion des clients</h1>
-        <a href="{{ path('app_admin_dashboard') }}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left"></i> Retour
+        <h1><i class="bi bi-people me-2"></i>Clients</h1>
+        <a href="{{ path('app_admin_customer_new') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-2"></i>Nouveau
         </a>
     </div>
 
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Email</th>
-                        <th>Téléphone</th>
-                        <th>Adresse</th>
-                        <th>Carte</th>
-                        <th>Points fidélité</th>
-                        <th>Inscrit le</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for customer in customers %}
-                    <tr>
-                        <td><strong>{{ customer.fullName }}</strong></td>
-                        <td>{{ customer.email }}</td>
-                        <td>{{ customer.phone ?: '-' }}</td>
-                        <td>{{ customer.fullAddress ?: '-' }}</td>
-                        <td>
-                            {% if customer.hasCardConsent %}
-                                <span class="badge bg-success">{{ customer.maskedCardNumber }}</span>
-                            {% else %}
-                                <span class="badge bg-secondary">Non</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ customer.loyaltyPoints ?: 0 }} pts</td>
-                        <td>{{ customer.createdAt|date('d/m/Y') }}</td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">Aucun client enregistré</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% for flash in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show">
+                <i class="bi bi-check-circle me-2"></i>{{ flash }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+            
+            {% for flash in app.flashes('error') %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                <i class="bi bi-exclamation-triangle me-2"></i>{{ flash }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Carte</th>
+                            <th>Points fidélité</th>
+                            <th>Inscrit le</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in customers %}
+                        <tr>
+                            <td><strong>{{ customer.fullName }}</strong></td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.phone ?: '-' }}</td>
+                            <td>{{ customer.fullAddress ?: '-' }}</td>
+                            <td>
+                                {% if customer.hasCardConsent %}
+                                    <span class="badge bg-success">{{ customer.maskedCardNumber }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Non</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ customer.loyaltyPoints ?: 0 }} pts</td>
+                            <td>{{ customer.createdAt ? customer.createdAt|date('d/m/Y') : '-' }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('app_admin_customer_edit', {id: customer.id}) }}" class="btn btn-sm btn-outline-primary" title="Modifier">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                {% if customer.user and customer.user.id != app.user.id %}
+                                <form method="post" action="{{ path('app_admin_customer_delete', {id: customer.id}) }}" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">
+                                    <input type="hidden" name="_token" value="{{ deleteTokens[customer.id] }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">Aucun client enregistré</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

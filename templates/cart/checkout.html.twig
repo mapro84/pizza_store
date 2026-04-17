@@ -15,6 +15,19 @@
             </div>
             {% endif %}
             
+            {% if app.session.get('password_errors') %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>{{ 'cart.create_account.password_weak'|trans }}</strong>
+                <ul class="mb-0 mt-2">
+                    {% for error in app.session.get('password_errors') %}
+                    <li>{{ error|trans }}</li>
+                    {% endfor %}
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+            
             <form method="POST" action="{{ path('app_checkout_process') }}" id="checkoutForm">
                 <div class="card mb-4">
                     <div class="card-header bg-danger text-white">
@@ -61,12 +74,22 @@
                                     <small class="text-muted">Ce nom s'affichera sur vos commandes</small>
                                 </div>
                                 <div class="mt-3">
-                                    <label for="password" class="form-label">Mot de passe (min. 8 caractères)</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Votre mot de passe">
+                                    <label for="password" class="form-label">Mot de passe *</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Votre mot de passe" minlength="8">
+                                    <div class="alert alert-info mt-2 mb-0">
+                                        <small><strong>{{ 'password.requirements'|trans }}</strong></small>
+                                        <ul class="mb-0 mt-1 small" id="passwordRequirements">
+                                            <li id="reqLength"><span class="text-danger">✗</span> {{ 'password.error.min_length'|trans }}</li>
+                                            <li id="reqUpper"><span class="text-danger">✗</span> {{ 'password.error.uppercase'|trans }}</li>
+                                            <li id="reqNumber"><span class="text-danger">✗</span> {{ 'password.error.number'|trans }}</li>
+                                            <li id="reqSpecial"><span class="text-danger">✗</span> {{ 'password.error.special'|trans }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="mt-2">
                                     <label for="password_confirm" class="form-label">Confirmer le mot de passe</label>
-                                    <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirmez votre mot de passe">
+                                    <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirmez votre mot de passe" minlength="8">
+                                    <small class="text-danger d-none" id="passwordMatchError">Les mots de passe ne correspondent pas</small>
                                 </div>
                             </div>
                         </div>
@@ -183,12 +206,50 @@ function selectPayment(method) {
     document.getElementById('swish').checked = method === 'swish';
 }
 
+function validatePassword(password) {
+    const hasLength = password.length >= 8;
+    const hasUpper = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    document.getElementById('reqLength').innerHTML = hasLength ? '<span class="text-success">✓</span> {{ 'password.error.min_length'|trans }}' : '<span class="text-danger">✗</span> {{ 'password.error.min_length'|trans }}';
+    document.getElementById('reqUpper').innerHTML = hasUpper ? '<span class="text-success">✓</span> {{ 'password.error.uppercase'|trans }}' : '<span class="text-danger">✗</span> {{ 'password.error.uppercase'|trans }}';
+    document.getElementById('reqNumber').innerHTML = hasNumber ? '<span class="text-success">✓</span> {{ 'password.error.number'|trans }}' : '<span class="text-danger">✗</span> {{ 'password.error.number'|trans }}';
+    document.getElementById('reqSpecial').innerHTML = hasSpecial ? '<span class="text-success">✓</span> {{ 'password.error.special'|trans }}' : '<span class="text-danger">✗</span> {{ 'password.error.special'|trans }}';
+    
+    return hasLength && hasUpper && hasNumber && hasSpecial;
+}
+
+function checkPasswordMatch() {
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('password_confirm').value;
+    const error = document.getElementById('passwordMatchError');
+    
+    if (confirm && password !== confirm) {
+        error.classList.remove('d-none');
+    } else {
+        error.classList.add('d-none');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const createAccountCheckbox = document.getElementById('create_account');
     if (createAccountCheckbox) {
         createAccountCheckbox.addEventListener('change', function() {
             document.getElementById('passwordFields').style.display = this.checked ? 'block' : 'none';
         });
+    }
+    
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            validatePassword(this.value);
+        });
+    }
+    
+    const confirmInput = document.getElementById('password_confirm');
+    if (confirmInput) {
+        confirmInput.addEventListener('input', checkPasswordMatch);
     }
 });
 
@@ -199,9 +260,9 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e) {
         var password = document.getElementById('password').value;
         var passwordConfirm = document.getElementById('password_confirm').value;
         
-        if (!password || password.length < 8) {
+        if (!validatePassword(password)) {
             e.preventDefault();
-            alert('Le mot de passe doit contenir au moins 8 caractères');
+            alert('Votre mot de passe n\'est pas assez sécurisé. Veuillez respecter toutes les exigences.');
             return;
         }
         
@@ -213,7 +274,7 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e) {
     }
     {% endif %}
     
-    var payment = selectedPayment || 'carte';
+    var payment = selectedPayment || 'especes';
     
     if (payment === 'carte') {
         e.preventDefault();

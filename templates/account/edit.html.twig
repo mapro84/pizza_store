@@ -1,81 +1,136 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier mon profil - Bella Napoli{% endblock %}
+{% block title %}{{ 'account.edit'|trans }} - Bella Napoli{% endblock %}
 
 {% block body %}
 <div class="container py-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('app_account') }}">Mon compte</a></li>
-            <li class="breadcrumb-item active">Modifier mes informations</li>
+            <li class="breadcrumb-item"><a href="{{ path('app_account') }}">{{ 'nav.my_account'|trans }}</a></li>
+            <li class="breadcrumb-item active">{{ 'account.edit'|trans }}</li>
         </ol>
     </nav>
 
-    <div class="card shadow">
-        <div class="card-header bg-danger text-white">
-            <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Modifier mes informations</h4>
-        </div>
-        <div class="card-body">
-            {% for flash in app.flashes('success') %}
-            <div class="alert alert-success alert-dismissible fade show">
-                {{ flash }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            {% endfor %}
-
-            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="firstName" class="form-label">Prénom</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" 
-                           value="{{ customer.firstName }}" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="lastName" class="form-label">Nom</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" 
-                           value="{{ customer.lastName }}" required>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="phone" class="form-label">Téléphone</label>
-                <input type="tel" class="form-control" id="phone" name="phone" 
-                       value="{{ customer.phone }}" placeholder="06 12 34 56 78">
-            </div>
-
-            <hr class="my-4">
-            <h5 class="mb-3">Adresse de livraison</h5>
-
-            <div class="mb-3">
-                <label for="address" class="form-label">Rue et numéro</label>
-                <input type="text" class="form-control" id="address" name="address" 
-                       value="{{ customer.address }}">
-            </div>
-
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="postalCode" class="form-label">Code postal</label>
-                    <input type="text" class="form-control" id="postalCode" name="postalCode" 
-                           value="{{ customer.postalCode }}">
-                </div>
-                <div class="col-md-8 mb-3">
-                    <label for="city" class="form-label">Ville</label>
-                    <input type="text" class="form-control" id="city" name="city" 
-                           value="{{ customer.city }}">
-                </div>
-            </div>
-
-            <hr class="my-4">
-
-            <div class="d-flex justify-content-between">
-                <a href="{{ path('app_account') }}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-2"></i>Annuler
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group mb-4">
+                <a href="{{ path('app_account') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-house me-2"></i>{{ 'nav.my_account'|trans }}
                 </a>
-                <button type="submit" class="btn btn-danger">
-                    <i class="bi bi-check-lg me-2"></i>Enregistrer
-                </button>
+                <a href="{{ path('app_account_profile') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-person me-2"></i>{{ 'account.profile'|trans }}
+                </a>
+                <a href="{{ path('app_account_orders') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-receipt me-2"></i>{{ 'nav.my_orders'|trans }}
+                </a>
+                <a href="{{ path('app_account_edit') }}" class="list-group-item list-group-item-action active">
+                    <i class="bi bi-pencil me-2"></i>{{ 'account.edit'|trans }}
+                </a>
+                <a href="{{ path('app_account_password') }}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-key me-2"></i>{{ 'account.change_password'|trans }}
+                </a>
             </div>
-            {{ form_end(form) }}
+        </div>
+        
+        <div class="col-md-9">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>{{ 'account.edit'|trans }}</h4>
+                </div>
+                <div class="card-body">
+                    {% for flash in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {{ flash }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+
+                    <form method="post">
+                        <h5 class="mb-3 border-bottom pb-2">
+                            <i class="bi bi-person-badge me-2"></i>{{ 'account.personal_info'|trans }}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">{{ 'account.firstname'|trans }}</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" 
+                                       value="{{ customer.firstName }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">{{ 'account.lastname'|trans }}</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" 
+                                       value="{{ customer.lastName }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">{{ 'account.phone'|trans }}</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                   value="{{ customer.phone }}" placeholder="06 12 34 56 78">
+                        </div>
+
+                        <hr class="my-4">
+                        <h5 class="mb-3 border-bottom pb-2">
+                            <i class="bi bi-geo-alt me-2"></i>{{ 'account.shipping_address'|trans }}
+                        </h5>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">{{ 'account.street'|trans }}</label>
+                            <input type="text" class="form-control" id="address" name="address" 
+                                   value="{{ customer.address }}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="postalCode" class="form-label">{{ 'account.postal_code'|trans }}</label>
+                                <input type="text" class="form-control" id="postalCode" name="postalCode" 
+                                       value="{{ customer.postalCode }}">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="city" class="form-label">{{ 'account.city'|trans }}</label>
+                                <input type="text" class="form-control" id="city" name="city" 
+                                       value="{{ customer.city }}">
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                        <h5 class="mb-3 border-bottom pb-2">
+                            <i class="bi bi-credit-card me-2"></i>{{ 'account.payment_method'|trans }}
+                        </h5>
+
+                        <div class="mb-3">
+                            <label for="favoritePaymentMethod" class="form-label">{{ 'account.favorite_payment'|trans }}</label>
+                            <select class="form-select" id="favoritePaymentMethod" name="favoritePaymentMethod">
+                                <option value="">—</option>
+                                <option value="carte" {{ customer.favoritePaymentMethod == 'carte' ? 'selected' : '' }}>
+                                    <i class="bi bi-credit-card"></i> {{ 'payment.carte'|trans }}
+                                </option>
+                                <option value="especes" {{ customer.favoritePaymentMethod == 'especes' ? 'selected' : '' }}>
+                                    {{ 'payment.especes'|trans }}
+                                </option>
+                                <option value="paypal" {{ customer.favoritePaymentMethod == 'paypal' ? 'selected' : '' }}>
+                                    {{ 'payment.paypal'|trans }}
+                                </option>
+                                <option value="swish" {{ customer.favoritePaymentMethod == 'swish' ? 'selected' : '' }}>
+                                    {{ 'payment.swish'|trans }}
+                                </option>
+                            </select>
+                            <small class="text-muted">Sélectionnez votre moyen de paiement préféré pour vos prochaines commandes.</small>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('app_account_profile') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>{{ 'account.cancel'|trans }}
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-check-lg me-2"></i>{{ 'account.save'|trans }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
